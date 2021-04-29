@@ -84,6 +84,11 @@
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-pool2</artifactId>
     </dependency>
+    <!--easyPOI文件导入导出-->
+    <dependency>
+      <groupId>cn.afterturn</groupId>
+      <artifactId>easypoi-spring-boot-starter</artifactId>
+      <version>4.2.0</version>
+    </dependency>
   </dependencies>
-
 </project>
