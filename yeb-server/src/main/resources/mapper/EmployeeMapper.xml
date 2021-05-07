@@ -63,6 +63,27 @@
         id, name, gender, birthday, idCard, wedlock, nationId, nativePlace, politicId, email, phone, address, departmentId, jobLevelId, posId, engageForm, tiptopDegree, specialty, school, beginDate, workState, workID, contractTerm, conversionTime, notWorkDate, beginContract, endContract, workAge, salaryId
     </sql>
 
+    <resultMap id="EmployeeWithSalary" type="com.xxxx.server.pojo.Employee" extends="BaseResultMap">
+        <association property="salary" javaType="com.xxxx.server.pojo.Salary">
+            <id column="sid" property="id"></id>
+            <result column="sname" property="name"></result>
+            <result column="sbasicSalary" property="basicSalary"></result>
+            <result column="sbonus" property="bonus"></result>
+            <result column="slunchSalary" property="lunchSalary"></result>
+            <result column="strafficSalary" property="trafficSalary"></result>
+            <result column="sallSalary" property="allSalary"></result>
+            <result column="spensionBase" property="pensionBase"></result>
+            <result column="spensionPer" property="pensionPer"></result>
+            <result column="smedicalBase" property="medicalBase"></result>
+            <result column="smedicalPer" property="medicalPer"></result>
+            <result column="saccumulationFundBase" property="accumulationFundBase"></result>
+            <result column="saccumulationFundPer" property="accumulationFundPer"></result>
+        </association>
+        <association property="department" javaType="com.xxxx.server.pojo.Department">
+            <result column="dname" property="name"></result>
+        </association>
+    </resultMap>
+
     <!-- 获取所有员工(分页) -->
     <select id="getEmployeeByPage" resultMap="EmployeeInfo">
         SELECT
@@ -148,6 +169,32 @@
             <if test="null!=id">
                 AND e.id = #{id}
             </if>
+        ORDER BY
+            e.id
+    </select>
+
+    <!-- 获取所有员工账套 -->
+    <select id="getEmployeeWithSalary" resultMap="EmployeeWithSalary">
+        SELECT
+            e.*,
+            d.`name` AS dname,
+            s.id AS sid,
+            s.`name` AS sname,
+            s.basicSalary AS sbasicSalary,
+            s.bonus AS sbonus,
+            s.lunchSalary AS slunchSalary,
+            s.trafficSalary AS strafficSalary,
+            s.allSalary AS sallSalary,
+            s.pensionBase AS spensionBase,
+            s.pensionPer AS spensionPer,
+            s.medicalBase AS smedicalBase,
+            s.medicalPer AS smedicalPer,
+            s.accumulationFundBase AS saccumulationFundBase,
+            s.accumulationFundPer AS saccumulationFundPer
+        FROM
+            t_employee e
+            LEFT JOIN t_salary s ON e.salaryId = s.id
+            LEFT JOIN t_department d ON e.departmentId = d.id
         ORDER BY
             e.id
     </select>

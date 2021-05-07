@@ -46,4 +46,12 @@ public interface IEmployeeService extends IService<Employee> {
      * @param id
      */
     List<Employee> getEmployee(Integer id);
+
+    /**
+     * 获取所有员工账套
+     * @param currentPage
+     * @param size
+     * @return
+     */
+    RespPageBean getEmployeeWithSalary(Integer currentPage, Integer size);
 }
