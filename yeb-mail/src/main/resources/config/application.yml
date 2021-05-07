@@ -26,17 +26,21 @@ spring:
     host: 127.0.0.1
     # 端口
     port: 5672
-#    listener:
-#      simple:
-#        acknowledge-mode: manual
-#  redis:
-#    timeout: 10000ms
-#    host: 39.102.65.157
-#    port: 6379
-#    database: 0 # 选择哪个库，默认0库
-#    lettuce:
-#      pool:
-#        max-active: 1024 # 最大连接数，默认 8
-#        max-wait: 10000ms # 最大连接阻塞等待时间，单位毫秒，默认 -1
-#        max-idle: 200 # 最大空闲连接，默认 8
-#        min-idle: 5
+    listener:
+      simple:
+        # 开启手动确认
+        acknowledge-mode: manual
+  # Redis配置
+  redis:
+    timeout: 10000ms # 连接超时时间
+    host: 127.0.0.1 # Redis服务器地址
+    port: 6379 # Redis服务器端口
+    # Redis服务器密码
+    password:
+    database: 0 # 选择哪个库，默认0库
+    lettuce:
+      pool:
+        max-active: 1024 # 最大连接数，默认 8
+        max-wait: 10000ms # 最大连接阻塞等待时间，单位毫秒，默认 -1
+        max-idle: 200 # 最大空闲连接，默认 8
+        min-idle: 5 # 最小空闲连接，默认 0
